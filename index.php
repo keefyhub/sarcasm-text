@@ -30,16 +30,8 @@ if ($token !== TOKEN) {
     echo json_encode($result);
 }
 
-if ($text) {
-    // Send `acknowledgment_response`
-//    $result = [
-//        'response_type' => 'ephemeral',
-//        'text' => 'Generating sarcastic response...'
-//    ];
-//
-//    header('Content-type: application/json');
-//    echo json_encode($result);
 
+if ($command === '/sarcasm' && $text) {
     $split_string = str_split($text);
 
     foreach ($split_string as $key => $character) {
@@ -52,23 +44,33 @@ if ($text) {
         }
     }
 
-    // Send `message_response`
-    if ($response_url) {
-        $result = [
-            'replace_original' => 'true',
-            'response_type' => 'in_channel',
-            'text' => implode($output)
-        ];
+    // Prepare result
+    $result = [
+        'replace_original' => 'true',
+        'response_type' => 'in_channel',
+        'text' => implode($output)
+    ];
+}
 
-        $curl = curl_init();
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $response_url,
-            CURLOPT_POST => 1,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POSTFIELDS => json_encode($result)
-        ]);
+if ($command === '/breakfastclub') {
+    // Prepare result
+    $result = [
+        'replace_original' => 'true',
+        'response_type' => 'in_channel',
+        'text' => 'Test'
+    ];
+}
 
-        $resp = curl_exec($curl);
-        curl_close($curl);
-    }
+// Send `message_response`
+if ($response_url && $result) {
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => $response_url,
+        CURLOPT_POST => 1,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POSTFIELDS => json_encode($result)
+    ]);
+
+    $resp = curl_exec($curl);
+    curl_close($curl);
 }
