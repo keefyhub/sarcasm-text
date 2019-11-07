@@ -36,8 +36,12 @@ if ($text) {
         }
     }
 
-    $result['response_type'] = 'in_channel';
-    $result['text'] = implode($output);
+    $result =
+        [
+            'response_type' => 'in_channel',
+            'replace_original' => 'true',
+            'text' => implode($output)
+        ];
 }
 
 header('Content-type: application/json');
