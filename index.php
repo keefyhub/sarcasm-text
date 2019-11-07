@@ -36,7 +36,8 @@ if ($text) {
         }
     }
 
-    $result = implode($output);
+    $result['response_type'] = 'in_channel';
+    $result['text'] = implode($output);
 }
 
-echo $result;
+echo json_encode($result);
