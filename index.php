@@ -19,9 +19,15 @@ $output = [];
 $result = false;
 
 // Check the token
-if ($token != TOKEN) {
+if ($token !== TOKEN) {
     $msg = "The token for the slash command doesn't match. Check your script.";
-    die($msg);
+    $result = [
+        'response_type' => 'ephemeral',
+        'text' => $msg
+    ];
+
+    header('Content-type: application/json');
+    echo json_encode($result);
 }
 
 if ($text) {
@@ -61,7 +67,6 @@ if ($text) {
         ]);
 
         $resp = curl_exec($curl);
-        var_dump($resp);
         curl_close($curl);
     }
 }
