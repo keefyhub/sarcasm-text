@@ -54,7 +54,7 @@ if ($text) {
     if ($response_url) {
         $result = [
             'replace_original' => 'true',
-            'response_type' => 'ephemeral',
+            'response_type' => 'in_channel',
             'text' => implode($output)
         ];
 
