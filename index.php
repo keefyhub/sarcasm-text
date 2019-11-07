@@ -57,7 +57,7 @@ if ($text) {
             CURLOPT_URL => $response_url,
             CURLOPT_POST => 1,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POSTFIELDS => $result
+            CURLOPT_POSTFIELDS => json_encode($result)
         ]);
 
         $resp = curl_exec($curl);
