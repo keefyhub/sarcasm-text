@@ -36,7 +36,7 @@ if ($text) {
         }
     }
 
-    $result['response_type'] = 'in_channel';
+//    $result['response_type'] = 'in_channel';
     $result['text'] = implode($output);
 }
 
