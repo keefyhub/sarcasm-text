@@ -1,0 +1,26 @@
+{
+  "name": "sarcasm-text",
+  "version": "1.0.0",
+  "description": "Custom slash command to use isitup.org to check if a site is up from within Slack",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "php -S localhost:8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keefyhub/sarcasm-text.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keefyhub/sarcasm-text/issues"
+  },
+  "homepage": "https://github.com/keefyhub/sarcasm-text#readme",
+  "engines": {
+    "node": "7.1.0"
+  }
+}
