@@ -40,4 +40,5 @@ if ($text) {
     $result['text'] = implode($output);
 }
 
+header('Content-type: application/json');
 echo json_encode($result);
