@@ -18,7 +18,7 @@ $output = [];
 $result = false;
 
 // Check the token
-if ($token != getenv('token')) {
+if ($token != TOKEN) {
     $msg = "The token for the slash command doesn't match. Check your script.";
     die($msg);
 }
