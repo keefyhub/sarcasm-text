@@ -32,13 +32,13 @@ if ($token !== TOKEN) {
 
 if ($text) {
     // Send `acknowledgment_response`
-    $result = [
-        'response_type' => 'ephemeral',
-        'text' => 'Generating sarcastic response...'
-    ];
-
-    header('Content-type: application/json');
-    echo json_encode($result);
+//    $result = [
+//        'response_type' => 'ephemeral',
+//        'text' => 'Generating sarcastic response...'
+//    ];
+//
+//    header('Content-type: application/json');
+//    echo json_encode($result);
 
     $split_string = str_split($text);
 
