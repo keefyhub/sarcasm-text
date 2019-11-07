@@ -10,12 +10,11 @@ if (getenv('TOKEN')) {
     define('TOKEN', $_ENV['TOKEN']);
 }
 
-var_dump($_REQUEST);
-
 # Grab some of the values from the slash command, create vars for post back to Slack
 $command = !empty($_REQUEST['command']) ? $_REQUEST['command'] : false;
 $text = !empty($_REQUEST['text']) ? htmlspecialchars($_REQUEST['text']) : false;
 $token = !empty($_REQUEST['token']) ? $_REQUEST['token'] : false;
+$response_url = !empty($_REQUEST['response_url']) ? $_REQUEST['response_url'] : false;
 $output = [];
 $result = false;
 
@@ -38,13 +37,30 @@ if ($text) {
         }
     }
 
-    $result =
-        [
-            'response_type' => 'in_channel',
+//    $result = [
+//        'response_type' => 'ephemeral',
+//        'text' => implode($output)
+//    ];
+//
+//    header('Content-type: application/json');
+//    echo json_encode($result);
+
+    if ($response_url) {
+        $result = [
             'replace_original' => 'true',
+            'response_type' => 'ephemeral',
             'text' => implode($output)
         ];
-}
 
-header('Content-type: application/json');
-echo json_encode($result);
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $response_url,
+            CURLOPT_POST => 1,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => $result
+        ]);
+
+        $resp = curl_exec($curl);
+        curl_close($curl);
+    }
+}
