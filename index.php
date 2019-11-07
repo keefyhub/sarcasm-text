@@ -31,6 +31,15 @@ if ($token !== TOKEN) {
 }
 
 if ($text) {
+    // Send `acknowledgment_response`
+    $result = [
+        'response_type' => 'ephemeral',
+        'text' => 'Generating sarcastic response...'
+    ];
+
+    header('Content-type: application/json');
+    echo json_encode($result);
+
     $split_string = str_split($text);
 
     foreach ($split_string as $key => $character) {
@@ -43,14 +52,7 @@ if ($text) {
         }
     }
 
-//    $result = [
-//        'response_type' => 'ephemeral',
-//        'text' => implode($output)
-//    ];
-//
-//    header('Content-type: application/json');
-//    echo json_encode($result);
-
+    // Send `message_response`
     if ($response_url) {
         $result = [
             'replace_original' => 'true',
