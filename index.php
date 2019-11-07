@@ -61,6 +61,7 @@ if ($text) {
         ]);
 
         $resp = curl_exec($curl);
+        var_dump($resp);
         curl_close($curl);
     }
 }
