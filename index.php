@@ -10,6 +10,8 @@ if (getenv('TOKEN')) {
     define('TOKEN', $_ENV['TOKEN']);
 }
 
+var_dump(TOKEN);
+
 # Grab some of the values from the slash command, create vars for post back to Slack
 $command = !empty($_REQUEST['command']) ? $_REQUEST['command'] : false;
 $text = !empty($_REQUEST['text']) ? htmlspecialchars($_REQUEST['text']) : false;
