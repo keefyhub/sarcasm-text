@@ -13,10 +13,14 @@ if (getenv('TOKEN')) {
 # Grab some of the values from the slash command, create vars for post back to Slack
 $command = !empty($_REQUEST['command']) ? $_REQUEST['command'] : false;
 $text = !empty($_REQUEST['text']) ? htmlspecialchars($_REQUEST['text']) : false;
+$user = !empty($_REQUEST['user_id']) ? htmlspecialchars($_REQUEST['user_id']) : false;
 $token = !empty($_REQUEST['token']) ? $_REQUEST['token'] : false;
 $response_url = !empty($_REQUEST['response_url']) ? $_REQUEST['response_url'] : false;
 $output = [];
 $result = false;
+
+var_dump($user);
+die();
 
 // Check the token
 if ($token !== TOKEN) {
@@ -29,7 +33,6 @@ if ($token !== TOKEN) {
     header('Content-type: application/json');
     echo json_encode($result);
 }
-
 
 if ($command === '/sarcasm' && $text) {
     $split_string = str_split($text);
@@ -49,6 +52,33 @@ if ($command === '/sarcasm' && $text) {
         'replace_original' => 'true',
         'response_type' => 'in_channel',
         'text' => implode($output)
+    ];
+}
+
+if ($command === '/insult') {
+    if (empty($user)) {
+        $output = 'You need to @someone!';
+    } else {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://insult.mattbas.org/api/en/insult.json?who=$user");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        $response = curl_exec($ch);
+        $response = json_decode($response);
+        curl_close($ch);
+
+        if (!empty($response->error)) {
+            $output = $response->error;
+        } elseif (isset($response->insult)) {
+            $output = $response->insult;
+        }
+    }
+
+    // Prepare result
+    $result = [
+        'replace_original' => 'true',
+        'response_type' => 'in_channel',
+        'text' => $output
     ];
 }
 
