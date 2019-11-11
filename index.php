@@ -60,7 +60,6 @@ if ($command === '/insult') {
         $output = 'You need to @someone!';
     } else {
         // get users info from slack (need to get Jez to re-authorise it)
-        // https://slack.com/api/users.info?token=xoxp-321862461831-321394769411-817440681601-bd879b93db77330841168c25e5df582d&user=U9FBLNMC3&pretty=1
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://insult.mattbas.org/api/en/insult.json?who=$user");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
