@@ -32,8 +32,6 @@ if ($token !== TOKEN) {
     echo json_encode($result);
 }
 
-var_dump($user_name);
-
 if ($command === '/sarcasm' && $text) {
     $split_string = str_split($text);
 
@@ -59,7 +57,6 @@ if ($command === '/insult') {
     if (empty($user)) {
         $output = 'You need to @someone!';
     } else {
-        // get users info from slack (need to get Jez to re-authorise it)
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://insult.mattbas.org/api/en/insult.json?who=$user");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
